@@ -1,0 +1,8 @@
+@import '../assets/styles/variables';
+
+.main-container {
+  flex: 1;
+  background-color: $background-color;
+  height: 100vh;
+  padding: 20px;
+}
