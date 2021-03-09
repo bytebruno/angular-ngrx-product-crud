@@ -1,5 +1,7 @@
-<h2>Products</h2>
-<div *ngFor="let product of products$ | async; trackBy: trackProducts">
-  <h3>{{ product?.Name }}</h3>
-  <p>{{ product?.Description }}</p>
+<h2>Displaying product results for...</h2>
+
+<div class="grid-container">
+  <div *ngFor="let product of products$ | async; trackBy: trackProducts">
+    <app-product-card [product]="product"></app-product-card>
+  </div>
 </div>

@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
+import { IProduct } from '../../model/product.model'
 import { getProducts } from '../../state/products.actions'
 import { selectProductsList } from '../../state/products.reducer'
 
@@ -11,7 +12,7 @@ import { selectProductsList } from '../../state/products.reducer'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsListComponent implements OnInit {
-  products$: Observable<Array<any>>
+  products$: Observable<Array<IProduct>>
 
   constructor(private store: Store<{ products: object }>) {
     this.products$ = store.select(selectProductsList)
@@ -21,5 +22,5 @@ export class ProductsListComponent implements OnInit {
     this.store.dispatch(getProducts())
   }
 
-  trackProducts = (index: number, product: any) => (product ? product.Id : null)
+  trackProducts = (index: number, product: IProduct) => (product ? product.Id : null)
 }

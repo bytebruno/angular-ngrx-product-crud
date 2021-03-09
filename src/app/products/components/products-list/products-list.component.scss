@@ -1,0 +1,13 @@
+@import '../../../../assets/styles/variables';
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(285px, 1fr));
+  grid-gap: 26px;
+  margin: 40px;
+  justify-items: center;
+
+  @media (max-width: $mobile) {
+    margin: 0;
+  }
+}

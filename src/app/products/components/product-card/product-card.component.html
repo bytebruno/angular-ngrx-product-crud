@@ -1,0 +1,21 @@
+<div class="card-container" *ngIf="product !== undefined">
+  <div class="card-img-container">
+    <img class="img-fluid" src="../../../../assets/images/product-placeholder.png" alt="Product image" />
+    <span class="badge price">€{{ product.Prices[0].Price }}</span>
+  </div>
+  <div class="card-content">
+    <h5>{{ product.Name }}</h5>
+    <hr />
+
+    <div class="card-footer-container">
+      <div class="card-footer-info">
+        <p class="bold">Retailer</p>
+        <p class="bold">GTIN</p>
+      </div>
+      <div class="card-footer-info">
+        <p>{{ product.Prices[0].Retailer.Name }}</p>
+        <p>{{ product.SKU }}</p>
+      </div>
+    </div>
+  </div>
+</div>
