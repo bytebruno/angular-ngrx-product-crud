@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
+import { Store } from '@ngrx/store'
 import { IProduct } from '../../model/product.model'
+import { setSelectedProduct, setSelectedProductToSessionStorage } from '../../state/products.actions'
 
 @Component({
   selector: 'app-product-card',
@@ -10,9 +13,13 @@ import { IProduct } from '../../model/product.model'
 export class ProductCardComponent implements OnInit {
   @Input() product!: IProduct
 
-  constructor() {}
+  constructor(private router: Router, private store: Store) {}
 
-  ngOnInit(): void {
-    if (this.product) console.log(this.product)
+  ngOnInit(): void {}
+
+  goToDetails() {
+    this.store.dispatch(setSelectedProduct({ product: this.product }))
+    this.store.dispatch(setSelectedProductToSessionStorage({ product: this.product }))
+    this.router.navigate(['/product'])
   }
 }

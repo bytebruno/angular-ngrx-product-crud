@@ -1,21 +1,23 @@
-import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store'
+import { createReducer, on } from '@ngrx/store'
 import { IProduct } from '../model/product.model'
-import { getProductsSuccess } from './products.actions'
+import { getProductsSuccess, getSelectedProductFromSessionStorageSuccess, setSelectedProduct } from './products.actions'
 
-export const productsFeatureKey = 'products'
+export interface IProductState {
+  productsList: IProduct[]
+  selectedProduct: IProduct | null
+}
 
 export const initialProductState: IProductState = {
   productsList: [],
+  selectedProduct: null,
 }
 
 export const productsReducer = createReducer(
   initialProductState,
-  on(getProductsSuccess, (state: IProductState, action) => ({ ...state, productsList: action.products }))
+  on(getProductsSuccess, (state: IProductState, action) => ({ ...state, productsList: action.products })),
+  on(setSelectedProduct, (state: IProductState, action) => ({ ...state, selectedProduct: action.product })),
+  on(getSelectedProductFromSessionStorageSuccess, (state: IProductState, action) => ({
+    ...state,
+    selectedProduct: action.product,
+  }))
 )
-export const selectProductsFeature = createFeatureSelector<IProductState>(productsFeatureKey)
-
-export const selectProductsList = createSelector(selectProductsFeature, (state: IProductState) => state.productsList)
-
-export interface IProductState {
-  productsList: IProduct[]
-}

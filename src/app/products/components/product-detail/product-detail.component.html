@@ -1,4 +1,4 @@
-<div class="card-container" *ngIf="product !== undefined" (click)="goToDetails()">
+<div class="product-detail-container" *ngIf="product$ | async as product">
   <div class="card-img-container">
     <img class="img-fluid" src="../../../../assets/images/product-placeholder.png" alt="Product image" />
     <span class="badge price">€{{ product.Prices[0].Price }}</span>
