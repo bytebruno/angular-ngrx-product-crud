@@ -1,6 +1,89 @@
+@import '../../../../assets/styles/variables';
+
 .product-detail-container {
   display: flex;
+  width: 600px;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
+  padding: 40px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.12);
+
+  .product-img-container {
+    max-width: 350px;
+    align-self: center;
+  }
+
+  .info-row {
+    flex: 1 1 auto;
+    width: 100%;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: row;
+  }
+
+  .labelbox {
+    flex: 0 0 25%;
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  .valuebox {
+    flex: 0 0 75%;
+    font-size: 0.75rem;
+  }
+
+  .price-container {
+    flex: 0 0 100%;
+    font-size: 0.75rem;
+
+    p {
+      margin-bottom: 0;
+    }
+
+    .price-label {
+      flex: 0 0 25%;
+      font-weight: 600;
+      font-size: 0.75rem;
+    }
+
+    .price-value {
+      flex: 0 0 75%;
+      font-size: 0.75rem;
+    }
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    width: 100%;
+
+    .product-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .product-description {
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .price-title {
+      font-size: 1.1rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    hr {
+      margin-top: 0;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: $mobile) {
+    padding: 20px;
+  }
 }
