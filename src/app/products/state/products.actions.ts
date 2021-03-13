@@ -4,8 +4,17 @@ import { IProduct } from '../model/product.model'
 export const getProducts = createAction('[Products] Get Products')
 export const getProductsSuccess = createAction('[Products] Get Products Success', props<{ products: IProduct[] }>())
 
+export const getOneProductRequest = createAction('[Products] Get One Product Request', props<{ productId: number }>())
+export const getOneProductRequestSuccess = createAction(
+  '[Products] Get One Product Success',
+  props<{ product: IProduct }>()
+)
+
 export const addProductRequest = createAction('[Products] Add Product Request', props<{ product: IProduct }>())
 export const addProductSuccess = createAction('[Products] Add Product Success', props<{ product: IProduct }>())
+
+export const updateProductRequest = createAction('[Products] Update Product Request', props<{ product: IProduct }>())
+export const updateProductSuccess = createAction('[Products] Update Product Success', props<{ product: IProduct }>())
 
 export const deleteProductRequest = createAction('[Products] Delete Product Request', props<{ productId: number }>())
 export const deleteProductSuccess = createAction('[Products] Delete Product Success', props<{ productId: number }>())

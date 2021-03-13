@@ -16,13 +16,20 @@ export class ProductsService {
     return this.http.get<IProduct[]>(`${environment.API_URL}/product`)
   }
 
+  getOne(productId: number): Observable<IProduct> {
+    return this.http.get<IProduct>(`${environment.API_URL}/product/${productId}`)
+  }
+
   add(product: IProduct): Observable<IProduct> {
     return this.http.post<IProduct>(`${environment.API_URL}/product`, product)
   }
 
-  delete(productId: number): Observable<IProduct> {
-    console.log(productId)
-    return this.http.delete<IProduct>(`${environment.API_URL}/product/${productId}`)
+  update(product: IProduct): Observable<IProduct> {
+    return this.http.patch<IProduct>(`${environment.API_URL}/product/${product.id}`, product)
+  }
+
+  delete(productId: number): Observable<any> {
+    return this.http.delete<any>(`${environment.API_URL}/product/${productId}`)
   }
 
   setSelectedProductToSessionStorage(product: IProduct) {

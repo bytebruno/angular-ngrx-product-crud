@@ -1,9 +1,13 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms'
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { ActivatedRoute, Router } from '@angular/router'
 import { Store } from '@ngrx/store'
+import { Observable, Subject } from 'rxjs'
+import { takeUntil } from 'rxjs/operators'
 import { GuidHelper } from 'src/app/utils/GuidHelper'
-import { IProduct, IProductCategory, IProductRetailer } from '../../model/product.model'
-import { addProductRequest } from '../../state/products.actions'
+import { IProduct, IProductCategory, IProductPrice, IProductRetailer } from '../../model/product.model'
+import { addProductRequest, getOneProductRequest, updateProductRequest } from '../../state/products.actions'
+import { selectedProduct } from '../../state/products.selectors'
 
 @Component({
   selector: 'app-product-create',
@@ -18,6 +22,10 @@ export class ProductCreateComponent implements OnInit {
   categoryDropdownSettings = {}
   retailerDropdownSettings = {}
   items!: FormArray
+  productId: string = ''
+  isAddMode: boolean = false
+  product$!: Observable<IProduct | null>
+  notifier = new Subject()
 
   categoriesList: IProductCategory[] = [
     {
@@ -45,9 +53,17 @@ export class ProductCreateComponent implements OnInit {
     },
   ]
 
-  constructor(private store: Store, private formBuilder: FormBuilder) {}
+  constructor(
+    private store: Store,
+    private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
+    this.productId = this.route.snapshot.params['id']
+    this.isAddMode = !this.productId
+
     this.categoryDropdownSettings = {
       idField: 'Id',
       textField: 'Name',
@@ -68,28 +84,51 @@ export class ProductCreateComponent implements OnInit {
 
     this.productForm = this.formBuilder.group({
       Id: [''],
-      Name: [''],
-      Description: [''],
-      SKU: [''],
-      Categories: [''],
-      Prices: this.formBuilder.array([this.createPriceFormGroup()]),
+      Name: ['', Validators.required],
+      Description: ['', Validators.required],
+      SKU: ['', Validators.required],
+      Categories: ['', Validators.required],
+      Prices: this.formBuilder.array([]),
     })
 
     this.items = this.productForm.get('Prices') as FormArray
+
+    if (!this.isAddMode) {
+      this.store.dispatch(getOneProductRequest({ productId: Number.parseInt(this.productId) }))
+
+      this.product$ = this.store.select(selectedProduct)
+      this.product$.pipe(takeUntil(this.notifier)).subscribe((product) => {
+        if (product === null) this.router.navigate(['/products'])
+        else {
+          debugger
+
+          let productClone = JSON.parse(JSON.stringify(product))
+          productClone.Prices.map((price: any, i: number) => {
+            price.Retailer = [price.Retailer]
+            this.addPriceFormGroup(price)
+          })
+          this.productForm.patchValue(productClone)
+          console.log(this.productForm.value)
+        }
+      })
+    } else {
+      this.addPriceFormGroup()
+    }
   }
 
-  createPriceFormGroup(): FormGroup {
+  createPriceFormGroup(price?: IProductPrice): FormGroup {
     return this.formBuilder.group({
-      Id: [''],
-      Retailer: [''],
-      Price: [''],
-      Tier: [''],
-      UpdateTime: [''],
+      Id: price?.Id ? [price.Id] : [''],
+      Retailer: price?.Retailer ? [price.Retailer, Validators.required] : ['', Validators.required],
+      Price: price?.Price ? [price.Price, Validators.required] : ['', Validators.required],
+      Tier: price?.Tier ? [price.Tier, Validators.required] : ['', Validators.required],
+      UpdateTime: price?.UpdateTime ? [price.UpdateTime] : [''],
     })
   }
 
-  addPrice(): void {
-    this.items.push(this.createPriceFormGroup())
+  addPriceFormGroup(price?: IProductPrice): void {
+    if (price) this.items.push(this.createPriceFormGroup(price))
+    else this.items.push(this.createPriceFormGroup())
   }
 
   removePrice(index: number): void {
@@ -102,16 +141,33 @@ export class ProductCreateComponent implements OnInit {
   }
 
   saveProduct() {
-    const normalizedObject = this.normalizeObjectToSave()
-    this.store.dispatch(addProductRequest({ product: normalizedObject }))
+    if (this.isAddMode) {
+      const normalizedObject = this.normalizeToAdd()
+      this.store.dispatch(addProductRequest({ product: normalizedObject }))
+    } else {
+      const normalizedObject = this.normalizeToUpdate()
+      debugger
+      this.store.dispatch(updateProductRequest({ product: normalizedObject }))
+    }
   }
 
-  normalizeObjectToSave() {
+  normalizeToAdd() {
     let productClone = JSON.parse(JSON.stringify(this.productForm.value))
     productClone.Id = GuidHelper.newGuid().toString()
     productClone.Prices.map((price: any) => {
       price.Retailer = price.Retailer[0]
       price.Id = GuidHelper.newGuid().toString()
+      price.UpdateTime = new Date()
+    })
+
+    return productClone
+  }
+
+  normalizeToUpdate() {
+    let productClone = JSON.parse(JSON.stringify(this.productForm.value))
+    productClone.id = this.productId
+    productClone.Prices.map((price: any) => {
+      price.Retailer = price.Retailer[0]
       price.UpdateTime = new Date()
     })
 

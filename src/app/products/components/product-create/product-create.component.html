@@ -64,11 +64,12 @@
         </div>
       </div>
       <div class="button-default-container add-price-container">
-        <button type="button" class="btn btn-primary" (click)="addPrice()">Add new price</button>
+        <button type="button" class="btn btn-primary" (click)="addPriceFormGroup()">Add new price</button>
       </div>
       <hr />
       <div class="button-default-container">
-        <button type="button" class="btn btn-success" (click)="saveProduct()">Save Product</button>
+        <button type="button" class="btn btn-success" (click)="saveProduct()" *ngIf="isAddMode">Save Product</button>
+        <button type="button" class="btn btn-success" (click)="saveProduct()" *ngIf="!isAddMode">Update Product</button>
       </div>
     </form>
     <pre class="card card-block card-header">Model: {{ productForm.value | json }}</pre>

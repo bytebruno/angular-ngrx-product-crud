@@ -15,6 +15,8 @@ import {
   getSelectedProductFromSessionStorage,
   getSelectedProductFromSessionStorageSuccess,
   setSelectedProductToSessionStorage,
+  updateProductRequest,
+  updateProductSuccess,
 } from './products.actions'
 
 @Injectable()
@@ -37,6 +39,24 @@ export class ProductsEffects {
       mergeMap((action) =>
         this.productsService.add(action.product).pipe(
           map((newProduct) => addProductSuccess({ product: newProduct })),
+          catchError((err) => {
+            console.log(err)
+            return EMPTY
+          })
+        )
+      )
+    )
+  )
+
+  updateProductRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateProductRequest),
+      mergeMap((action) =>
+        this.productsService.update(action.product).pipe(
+          map((updatedProduct) => {
+            debugger
+            return updateProductSuccess({ product: updatedProduct })
+          }),
           catchError((err) => {
             console.log(err)
             return EMPTY

@@ -29,8 +29,8 @@ export class ProductDetailComponent implements OnInit {
     })
   }
 
-  goToEditProduct(product: any) {
-    console.log(product)
+  goToEditProduct(productId: number) {
+    this.router.navigate(['/product', productId])
   }
 
   deleteProduct(productId: number) {

@@ -3,6 +3,7 @@ import { IProduct } from '../model/product.model'
 import {
   addProductSuccess,
   deleteProductSuccess,
+  getOneProductRequestSuccess,
   getProductsSuccess,
   getSelectedProductFromSessionStorageSuccess,
   setSelectedProduct,
@@ -25,6 +26,11 @@ export const productsReducer = createReducer(
     ...state,
     productsList: [...state.productsList, action.product],
   })),
+  on(getOneProductRequestSuccess, (state: IProductState, action) => ({
+    ...state,
+    selectedProduct: action.product,
+  })),
+
   on(deleteProductSuccess, (state: IProductState, action) => ({
     ...state,
     selectedProduct: null,
