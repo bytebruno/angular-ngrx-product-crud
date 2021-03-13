@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { ProductsModule } from './products/products.module'
+import { LoadingSpinnerModule } from './shared/loading-spinner/loading-spinner.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -13,7 +14,7 @@ import { ProductsModule } from './products/products.module'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-
+    LoadingSpinnerModule,
     ProductsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot(),

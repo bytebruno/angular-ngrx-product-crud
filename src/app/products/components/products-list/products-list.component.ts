@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs'
+import { setLoading } from 'src/app/shared/loading-spinner/components/loading-spinner/state/loading.action'
 import { IProduct } from '../../model/product.model'
 import { getProducts } from '../../state/products.actions'
 import { selectProductsList } from '../../state/products.selectors'
@@ -19,6 +20,7 @@ export class ProductsListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.store.dispatch(setLoading({ loading: true }))
     this.store.dispatch(getProducts())
   }
 

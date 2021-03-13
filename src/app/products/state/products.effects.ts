@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { EMPTY } from 'rxjs'
 import { catchError, map, mergeMap, tap } from 'rxjs/operators'
+import { setLoading } from 'src/app/shared/loading-spinner/components/loading-spinner/state/loading.action'
 import { IProduct } from '../model/product.model'
 import { ProductsService } from '../products.service'
 import {
@@ -26,7 +27,7 @@ export class ProductsEffects {
       ofType(getProducts),
       mergeMap(() =>
         this.productsService.getAll().pipe(
-          map((products: IProduct[]) => getProductsSuccess({ products })),
+          mergeMap((products: IProduct[]) => [getProductsSuccess({ products }), setLoading({ loading: false })]),
           catchError(() => EMPTY)
         )
       )
