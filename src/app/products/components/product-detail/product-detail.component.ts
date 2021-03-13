@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store'
 import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { IProduct } from '../../model/product.model'
-import { getSelectedProductFromSessionStorage } from '../../state/products.actions'
+import { deleteProductRequest, getSelectedProductFromSessionStorage } from '../../state/products.actions'
 import { selectedProduct } from '../../state/products.selectors'
 
 @Component({
@@ -27,6 +27,14 @@ export class ProductDetailComponent implements OnInit {
         else this.router.navigate(['/products'])
       }
     })
+  }
+
+  goToEditProduct(product: any) {
+    console.log(product)
+  }
+
+  deleteProduct(productId: number) {
+    this.store.dispatch(deleteProductRequest({ productId }))
   }
 
   ngOnDestroy() {

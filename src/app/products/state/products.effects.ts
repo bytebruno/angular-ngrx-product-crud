@@ -7,6 +7,9 @@ import { ProductsService } from '../products.service'
 import {
   addProductRequest,
   addProductSuccess,
+  clearSelectedProductFromSessionStorage,
+  deleteProductRequest,
+  deleteProductSuccess,
   getProducts,
   getProductsSuccess,
   getSelectedProductFromSessionStorage,
@@ -20,7 +23,7 @@ export class ProductsEffects {
     this.actions$.pipe(
       ofType(getProducts),
       mergeMap(() =>
-        this.productsService.getProducts().pipe(
+        this.productsService.getAll().pipe(
           map((products: IProduct[]) => getProductsSuccess({ products })),
           catchError(() => EMPTY)
         )
@@ -32,8 +35,26 @@ export class ProductsEffects {
     this.actions$.pipe(
       ofType(addProductRequest),
       mergeMap((action) =>
-        this.productsService.createProduct(action.product).pipe(
+        this.productsService.add(action.product).pipe(
           map((newProduct) => addProductSuccess({ product: newProduct })),
+          catchError((err) => {
+            console.log(err)
+            return EMPTY
+          })
+        )
+      )
+    )
+  )
+
+  deleteProductRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteProductRequest),
+      mergeMap((action) =>
+        this.productsService.delete(action.productId).pipe(
+          mergeMap(() => [
+            clearSelectedProductFromSessionStorage(),
+            deleteProductSuccess({ productId: action.productId }),
+          ]),
           catchError((err) => {
             console.log(err)
             return EMPTY
@@ -63,6 +84,16 @@ export class ProductsEffects {
         )
       )
     )
+  )
+
+  clearSelectedProductFromSessionStorage$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(clearSelectedProductFromSessionStorage),
+        tap((action) => this.productsService.clearSelectedProductFromSessionStorage()),
+        catchError(() => EMPTY)
+      ),
+    { dispatch: false }
   )
 
   constructor(private actions$: Actions, private productsService: ProductsService) {}

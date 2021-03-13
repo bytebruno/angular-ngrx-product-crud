@@ -83,6 +83,12 @@
     }
   }
 
+  .btn-action-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
   @media (max-width: $mobile) {
     padding: 20px;
   }

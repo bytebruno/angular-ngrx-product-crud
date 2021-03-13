@@ -1,4 +1,5 @@
 export interface IProduct {
+  id: number // needed by json-server (fake api)
   Id: string
   Name: string
   Description: string
