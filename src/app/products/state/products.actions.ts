@@ -4,6 +4,9 @@ import { IProduct } from '../model/product.model'
 export const getProducts = createAction('[Products] Get Products')
 export const getProductsSuccess = createAction('[Products] Get Products Success', props<{ products: IProduct[] }>())
 
+export const addProductRequest = createAction('[Products] Add Product Request', props<{ product: IProduct }>())
+export const addProductSuccess = createAction('[Products] Add Product Success', props<{ product: IProduct }>())
+
 export const getSelectedProduct = createAction('[Products] Get Selected Product')
 export const setSelectedProduct = createAction('[Products] Set Selected Product', props<{ product: IProduct }>())
 

@@ -1,0 +1,142 @@
+@import '../../../../assets/styles/variables';
+
+.product-detail-container {
+  display: flex;
+  width: 600px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 40px;
+  background-color: white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.12);
+
+  .product-img-container {
+    max-width: 350px;
+    align-self: center;
+  }
+
+  .product-form {
+    width: 100%;
+    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
+
+    .form-control {
+      font-size: 0.8rem;
+    }
+
+    button {
+      font-size: 0.95rem;
+    }
+
+    label {
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    input {
+      &:focus {
+        border-color: #89929c;
+        box-shadow: none;
+      }
+    }
+
+    textarea {
+      resize: none;
+      &:focus {
+        border-color: #89929c;
+        box-shadow: none;
+      }
+    }
+
+    ::ng-deep .multiselect-dropdown {
+      outline: 0;
+
+      span {
+        font-size: 0.8rem;
+      }
+
+      &:focus {
+        outline: 0;
+      }
+    }
+
+    hr {
+      margin-top: 0;
+    }
+
+    .price-container {
+      padding: 20px;
+      background-color: #f3f6fd;
+      border-radius: 5px;
+      box-shadow: 0 1px 3px rgb(0 0 0 / 8%), 0 1px 2px rgb(0 0 0 / 12%);
+      margin-bottom: 20px;
+
+      .price-delete-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 20px;
+      }
+    }
+    .button-default-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      margin-bottom: 40px;
+
+      &.add-price-container {
+        flex-direction: row;
+      }
+    }
+  }
+
+  .info-row {
+    flex: 1 1 auto;
+    width: 100%;
+    margin-bottom: 10px;
+
+    display: flex;
+    flex-direction: row;
+  }
+
+  .labelbox {
+    flex: 0 0 25%;
+    font-weight: 600;
+    font-size: 0.75rem;
+  }
+
+  .valuebox {
+    flex: 0 0 75%;
+    font-size: 0.75rem;
+  }
+
+  .card-content {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    width: 100%;
+
+    .product-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      text-align: center;
+    }
+    .product-description {
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    .price-title {
+      font-size: 1.1rem;
+      margin-top: 10px;
+      text-align: center;
+    }
+
+    hr {
+      margin-top: 0;
+      width: 100%;
+    }
+  }
+
+  @media (max-width: $mobile) {
+    padding: 20px;
+  }
+}

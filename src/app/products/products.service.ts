@@ -10,7 +10,12 @@ export class ProductsService {
   constructor(private http: HttpClient) {}
 
   getProducts(): Observable<IProduct[]> {
-    return this.http.get<IProduct[]>('/api/products')
+    return this.http.get<IProduct[]>('/api/product')
+  }
+
+  createProduct(product: IProduct): Observable<IProduct> {
+    console.log(product)
+    return this.http.post<IProduct>('/api/product', product)
   }
 
   setSelectedProductToSessionStorage(product: IProduct) {

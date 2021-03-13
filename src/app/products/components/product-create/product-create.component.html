@@ -1,0 +1,76 @@
+<div class="d-flex justify-content-center">
+  <div class="product-detail-container">
+    <div class="product-img-container">
+      <img class="img-fluid" src="../../../../assets/images/product-placeholder.png" alt="Product image" />
+    </div>
+
+    <form [formGroup]="productForm" class="product-form">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="name" class="form-control" id="name" formControlName="Name" placeholder="Nike Air" />
+      </div>
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          class="form-control"
+          id="description"
+          formControlName="Description"
+          placeholder="Nice tennis for playing basketball"
+          rows="3"
+        ></textarea>
+      </div>
+      <div class="form-group">
+        <label for="SKU">SKU</label>
+        <input type="SKU" class="form-control" id="SKU" formControlName="SKU" placeholder="NIKEAIR99NHCT" />
+      </div>
+      <div class="form-group">
+        <label for="categories">Category</label>
+
+        <ng-multiselect-dropdown
+          [settings]="categoryDropdownSettings"
+          [data]="categoriesList"
+          formControlName="Categories"
+        >
+        </ng-multiselect-dropdown>
+      </div>
+      <label class>Prices</label>
+      <hr />
+      <div formArrayName="Prices" *ngFor="let price of ProductFormPricesGroups.controls; let i = index">
+        <div class="price-container">
+          <div [formGroupName]="i">
+            <div class="form-group">
+              <label for="categories">Retailer</label>
+              <ng-multiselect-dropdown
+                [settings]="retailerDropdownSettings"
+                [data]="retailersList"
+                formControlName="Retailer"
+              >
+              </ng-multiselect-dropdown>
+            </div>
+            <div class="row">
+              <div class="col">
+                <label for="price">Price </label>
+                <input class="form-control" id="price" formControlName="Price" placeholder="2000" />
+              </div>
+              <div class="col">
+                <label for="tier">Tier</label>
+                <input class="form-control" id="tier" formControlName="Tier" placeholder="1" />
+              </div>
+            </div>
+            <div class="price-delete-container" *ngIf="i !== 0">
+              <button type="button" class="btn btn-danger" (click)="removePrice(i)">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="button-default-container add-price-container">
+        <button type="button" class="btn btn-primary" (click)="addPrice()">Add new price</button>
+      </div>
+      <hr />
+      <div class="button-default-container">
+        <button type="button" class="btn btn-success" (click)="saveProduct()">Save Product</button>
+      </div>
+    </form>
+    <pre class="card card-block card-header">Model: {{ productForm.value | json }}</pre>
+  </div>
+</div>

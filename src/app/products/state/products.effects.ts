@@ -5,6 +5,8 @@ import { catchError, map, mergeMap, tap } from 'rxjs/operators'
 import { IProduct } from '../model/product.model'
 import { ProductsService } from '../products.service'
 import {
+  addProductRequest,
+  addProductSuccess,
   getProducts,
   getProductsSuccess,
   getSelectedProductFromSessionStorage,
@@ -21,6 +23,21 @@ export class ProductsEffects {
         this.productsService.getProducts().pipe(
           map((products: IProduct[]) => getProductsSuccess({ products })),
           catchError(() => EMPTY)
+        )
+      )
+    )
+  )
+
+  addProductRequest$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addProductRequest),
+      mergeMap((action) =>
+        this.productsService.createProduct(action.product).pipe(
+          map((newProduct) => addProductSuccess({ product: newProduct })),
+          catchError((err) => {
+            console.log(err)
+            return EMPTY
+          })
         )
       )
     )

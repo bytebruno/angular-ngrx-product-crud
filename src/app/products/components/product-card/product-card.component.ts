@@ -20,6 +20,6 @@ export class ProductCardComponent implements OnInit {
   goToDetails() {
     this.store.dispatch(setSelectedProduct({ product: this.product }))
     this.store.dispatch(setSelectedProductToSessionStorage({ product: this.product }))
-    this.router.navigate(['/product'])
+    this.router.navigate(['/detail'])
   }
 }

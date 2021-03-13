@@ -13,6 +13,7 @@ import { ProductsModule } from './products/products.module'
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+
     ProductsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot(),

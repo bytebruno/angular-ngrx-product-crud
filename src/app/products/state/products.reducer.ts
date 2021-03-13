@@ -1,6 +1,11 @@
 import { createReducer, on } from '@ngrx/store'
 import { IProduct } from '../model/product.model'
-import { getProductsSuccess, getSelectedProductFromSessionStorageSuccess, setSelectedProduct } from './products.actions'
+import {
+  addProductSuccess,
+  getProductsSuccess,
+  getSelectedProductFromSessionStorageSuccess,
+  setSelectedProduct,
+} from './products.actions'
 
 export interface IProductState {
   productsList: IProduct[]
@@ -15,6 +20,10 @@ export const initialProductState: IProductState = {
 export const productsReducer = createReducer(
   initialProductState,
   on(getProductsSuccess, (state: IProductState, action) => ({ ...state, productsList: action.products })),
+  on(addProductSuccess, (state: IProductState, action) => ({
+    ...state,
+    productsList: [...state.productsList, action.product],
+  })),
   on(setSelectedProduct, (state: IProductState, action) => ({ ...state, selectedProduct: action.product })),
   on(getSelectedProductFromSessionStorageSuccess, (state: IProductState, action) => ({
     ...state,

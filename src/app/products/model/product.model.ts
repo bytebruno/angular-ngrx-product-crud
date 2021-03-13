@@ -7,12 +7,12 @@ export interface IProduct {
   Prices: IProductPrice[]
 }
 
-interface IProductCategory {
+export interface IProductCategory {
   Id: string
   Name: string
 }
 
-interface IProductPrice {
+export interface IProductPrice {
   Id: string
   Retailer: IProductRetailer
   Price: number
@@ -20,7 +20,7 @@ interface IProductPrice {
   UpdateTime: string
 }
 
-interface IProductRetailer {
+export interface IProductRetailer {
   Id: string
   Name: string
 }
