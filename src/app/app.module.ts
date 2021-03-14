@@ -8,6 +8,7 @@ import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { ProductsModule } from './products/products.module'
 import { LoadingSpinnerModule } from './shared/components/loading-spinner/loading-spinner.module'
+import { SnackbarModule } from './shared/components/snackbar/snackbar.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,6 +17,7 @@ import { LoadingSpinnerModule } from './shared/components/loading-spinner/loadin
     AppRoutingModule,
     HttpClientModule,
     LoadingSpinnerModule,
+    SnackbarModule,
     ProductsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot(),

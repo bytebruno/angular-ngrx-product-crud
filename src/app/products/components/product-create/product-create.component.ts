@@ -17,7 +17,7 @@ import { productToEdit } from '../../state/products.selectors'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCreateComponent implements OnInit {
-  product!: IProduct
+  product: IProduct | null = null
   productForm!: FormGroup
 
   items!: FormArray
@@ -55,18 +55,7 @@ export class ProductCreateComponent implements OnInit {
 
       this.product$ = this.store.select(productToEdit)
       this.product$.pipe(takeUntil(this.notifier)).subscribe((product) => {
-        if (product === null) return
-        this.product = product
-        let productClone = JSON.parse(JSON.stringify(product))
-
-        this.items.clear()
-
-        productClone.Prices.map((price: any, i: number) => {
-          price.Retailer = [price.Retailer]
-          this.addPriceFormGroup(price)
-        })
-        this.productForm.patchValue(productClone)
-        this.cdr.detectChanges()
+        this.prepareForm(product)
       })
     } else {
       this.addPriceFormGroup()
@@ -128,5 +117,20 @@ export class ProductCreateComponent implements OnInit {
     })
 
     return productClone
+  }
+
+  prepareForm(product: IProduct | null) {
+    if (product === null) return
+    this.product = product
+    let productClone = JSON.parse(JSON.stringify(product))
+
+    this.items.clear()
+
+    productClone.Prices.map((price: any, i: number) => {
+      price.Retailer = [price.Retailer]
+      this.addPriceFormGroup(price)
+    })
+    this.productForm.patchValue(productClone)
+    this.cdr.detectChanges()
   }
 }
