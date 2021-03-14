@@ -19,7 +19,6 @@ import { productToEdit } from '../../state/products.selectors'
 export class ProductCreateComponent implements OnInit {
   product!: IProduct
   productForm!: FormGroup
-  selectedItems = []
 
   items!: FormArray
   productId: string = ''
@@ -57,7 +56,7 @@ export class ProductCreateComponent implements OnInit {
       this.product$ = this.store.select(productToEdit)
       this.product$.pipe(takeUntil(this.notifier)).subscribe((product) => {
         if (product === null) return
-
+        this.product = product
         let productClone = JSON.parse(JSON.stringify(product))
 
         this.items.clear()
@@ -68,7 +67,6 @@ export class ProductCreateComponent implements OnInit {
         })
         this.productForm.patchValue(productClone)
         this.cdr.detectChanges()
-        console.log(this.productForm.value)
       })
     } else {
       this.addPriceFormGroup()
@@ -90,7 +88,7 @@ export class ProductCreateComponent implements OnInit {
     else this.items.push(this.createPriceFormGroup())
   }
 
-  removePrice(index: number): void {
+  removePriceFormGroup(index: number): void {
     if (index === 0) return
     this.items.removeAt(index)
   }

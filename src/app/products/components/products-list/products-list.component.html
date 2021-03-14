@@ -1,7 +1,4 @@
-<h2>Displaying product results for...</h2>
-
 <div class="grid-container">
-  <!-- Products - {{ products | json }} -->
   <div *ngFor="let product of products$ | async; trackBy: trackProducts">
     <app-product-card [product]="product"></app-product-card>
   </div>

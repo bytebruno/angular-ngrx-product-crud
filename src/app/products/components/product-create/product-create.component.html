@@ -1,4 +1,4 @@
-<div class="d-flex justify-content-center" *ngIf="(!isAddMode && productId) || isAddMode">
+<div class="d-flex justify-content-center" *ngIf="(!isAddMode && product) || isAddMode">
   <div class="product-detail-container">
     <div class="product-img-container">
       <img class="img-fluid" src="../../../../assets/images/product-placeholder.png" alt="Product image" />
@@ -47,7 +47,7 @@
               </div>
             </div>
             <div class="price-delete-container" *ngIf="i !== 0">
-              <button type="button" class="btn btn-danger" (click)="removePrice(i)">Delete</button>
+              <button type="button" class="btn btn-danger" (click)="removePriceFormGroup(i)">Delete</button>
             </div>
           </div>
         </div>
@@ -77,6 +77,5 @@
         </button>
       </div>
     </form>
-    <pre class="card card-block card-header">Model: {{ productForm.value | json }}</pre>
   </div>
 </div>
