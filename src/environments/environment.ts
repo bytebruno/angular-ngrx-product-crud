@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API_URL: '/api',
-  API_DELAY: 700,
+  API_DELAY: 300,
 }
 
 /*

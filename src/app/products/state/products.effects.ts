@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { EMPTY } from 'rxjs'
 import { catchError, map, mergeMap, tap } from 'rxjs/operators'
-import { setLoading } from 'src/app/shared/loading-spinner/components/loading-spinner/state/loading.action'
+import { setLoading } from '../../shared/components/loading-spinner/state/loading.action'
 import { IProduct } from '../model/product.model'
 import { ProductsService } from '../products.service'
 import {
@@ -11,10 +11,12 @@ import {
   clearSelectedProductFromSessionStorage,
   deleteProductRequest,
   deleteProductSuccess,
+  getOneProductRequest,
   getProducts,
   getProductsSuccess,
   getSelectedProductFromSessionStorage,
   getSelectedProductFromSessionStorageSuccess,
+  setProductToEdit,
   setSelectedProductToSessionStorage,
   updateProductRequest,
   updateProductSuccess,
@@ -28,6 +30,18 @@ export class ProductsEffects {
       mergeMap(() =>
         this.productsService.getAll().pipe(
           mergeMap((products: IProduct[]) => [getProductsSuccess({ products }), setLoading({ loading: false })]),
+          catchError(() => EMPTY)
+        )
+      )
+    )
+  )
+
+  getOne$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getOneProductRequest),
+      mergeMap((action) =>
+        this.productsService.getOne(action.productId).pipe(
+          mergeMap((product: IProduct) => [setProductToEdit({ product }), setLoading({ loading: false })]),
           catchError(() => EMPTY)
         )
       )

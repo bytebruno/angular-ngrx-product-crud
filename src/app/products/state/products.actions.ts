@@ -5,10 +5,7 @@ export const getProducts = createAction('[Products] Get Products')
 export const getProductsSuccess = createAction('[Products] Get Products Success', props<{ products: IProduct[] }>())
 
 export const getOneProductRequest = createAction('[Products] Get One Product Request', props<{ productId: number }>())
-export const getOneProductRequestSuccess = createAction(
-  '[Products] Get One Product Success',
-  props<{ product: IProduct }>()
-)
+export const getOneProductSuccess = createAction('[Products] Get One Product Success', props<{ product: IProduct }>())
 
 export const addProductRequest = createAction('[Products] Add Product Request', props<{ product: IProduct }>())
 export const addProductSuccess = createAction('[Products] Add Product Success', props<{ product: IProduct }>())
@@ -21,6 +18,7 @@ export const deleteProductSuccess = createAction('[Products] Delete Product Succ
 
 export const getSelectedProduct = createAction('[Products] Get Selected Product')
 export const setSelectedProduct = createAction('[Products] Set Selected Product', props<{ product: IProduct }>())
+export const setProductToEdit = createAction('[Products] Set Product to Edit', props<{ product: IProduct }>())
 
 export const setSelectedProductToSessionStorage = createAction(
   '[Products] Set Selected Product to Session Storage',

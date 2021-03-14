@@ -3,20 +3,23 @@ import { IProduct } from '../model/product.model'
 import {
   addProductSuccess,
   deleteProductSuccess,
-  getOneProductRequestSuccess,
+  getOneProductSuccess,
   getProductsSuccess,
   getSelectedProductFromSessionStorageSuccess,
+  setProductToEdit,
   setSelectedProduct,
 } from './products.actions'
 
 export interface IProductState {
   productsList: IProduct[]
   selectedProduct: IProduct | null
+  productToEdit: IProduct | null
 }
 
 export const initialProductState: IProductState = {
   productsList: [],
   selectedProduct: null,
+  productToEdit: null,
 }
 
 export const productsReducer = createReducer(
@@ -26,9 +29,13 @@ export const productsReducer = createReducer(
     ...state,
     productsList: [...state.productsList, action.product],
   })),
-  on(getOneProductRequestSuccess, (state: IProductState, action) => ({
+  on(getOneProductSuccess, (state: IProductState, action) => ({
     ...state,
     selectedProduct: action.product,
+  })),
+  on(setProductToEdit, (state: IProductState, action) => ({
+    ...state,
+    productToEdit: action.product,
   })),
 
   on(deleteProductSuccess, (state: IProductState, action) => ({

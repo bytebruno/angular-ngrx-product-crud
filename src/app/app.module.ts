@@ -3,10 +3,11 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { EffectsModule } from '@ngrx/effects'
 import { StoreModule } from '@ngrx/store'
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown'
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { ProductsModule } from './products/products.module'
-import { LoadingSpinnerModule } from './shared/loading-spinner/loading-spinner.module'
+import { LoadingSpinnerModule } from './shared/components/loading-spinner/loading-spinner.module'
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { LoadingSpinnerModule } from './shared/loading-spinner/loading-spinner.m
     ProductsModule,
     StoreModule.forRoot({}),
     EffectsModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent],

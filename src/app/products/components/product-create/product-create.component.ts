@@ -1,13 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
 import { GuidHelper } from 'src/app/utils/GuidHelper'
-import { IProduct, IProductCategory, IProductPrice, IProductRetailer } from '../../model/product.model'
+import { setLoading } from '../../../shared/components/loading-spinner/state/loading.action'
+import { IProduct, IProductPrice } from '../../model/product.model'
 import { addProductRequest, getOneProductRequest, updateProductRequest } from '../../state/products.actions'
-import { selectedProduct } from '../../state/products.selectors'
+import { productToEdit } from '../../state/products.selectors'
 
 @Component({
   selector: 'app-product-create',
@@ -19,75 +20,31 @@ export class ProductCreateComponent implements OnInit {
   product!: IProduct
   productForm!: FormGroup
   selectedItems = []
-  categoryDropdownSettings = {}
-  retailerDropdownSettings = {}
+
   items!: FormArray
   productId: string = ''
   isAddMode: boolean = false
   product$!: Observable<IProduct | null>
   notifier = new Subject()
 
-  categoriesList: IProductCategory[] = [
-    {
-      Id: 'ad327ca5-ec10-4051-9b05-43ebaa3157ce',
-      Name: 'Whisky',
-    },
-    {
-      Id: '9f4b3e22-a369-4fb7-9832-cf83f0bc3663',
-      Name: 'Scotch',
-    },
-  ]
-
-  retailersList: IProductRetailer[] = [
-    {
-      Id: 'e417d0b1-9cdf-48be-92b5-cf78a0eaa5d5',
-      Name: 'Bruno',
-    },
-    {
-      Id: 'e417d0b1-9cdf-48be-92b5-cf78a0eaa5dz',
-      Name: 'Visual Wallet',
-    },
-    {
-      Id: 'e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3',
-      Name: 'Omnia',
-    },
-  ]
-
   constructor(
     private store: Store,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.productId = this.route.snapshot.params['id']
     this.isAddMode = !this.productId
 
-    this.categoryDropdownSettings = {
-      idField: 'Id',
-      textField: 'Name',
-      enableCheckAll: false,
-      itemsShowLimit: 10,
-      allowSearchFilter: true,
-    }
-
-    this.retailerDropdownSettings = {
-      singleSelection: true,
-      idField: 'Id',
-      textField: 'Name',
-      enableCheckAll: false,
-      itemsShowLimit: 10,
-      allowSearchFilter: true,
-      closeDropDownOnSelection: true,
-    }
-
     this.productForm = this.formBuilder.group({
       Id: [''],
       Name: ['', Validators.required],
       Description: ['', Validators.required],
       SKU: ['', Validators.required],
-      Categories: ['', Validators.required],
+      Categories: [[], Validators.required],
       Prices: this.formBuilder.array([]),
     })
 
@@ -95,21 +52,23 @@ export class ProductCreateComponent implements OnInit {
 
     if (!this.isAddMode) {
       this.store.dispatch(getOneProductRequest({ productId: Number.parseInt(this.productId) }))
+      this.store.dispatch(setLoading({ loading: true }))
 
-      this.product$ = this.store.select(selectedProduct)
+      this.product$ = this.store.select(productToEdit)
       this.product$.pipe(takeUntil(this.notifier)).subscribe((product) => {
-        if (product === null) this.router.navigate(['/products'])
-        else {
-          debugger
+        if (product === null) return
 
-          let productClone = JSON.parse(JSON.stringify(product))
-          productClone.Prices.map((price: any, i: number) => {
-            price.Retailer = [price.Retailer]
-            this.addPriceFormGroup(price)
-          })
-          this.productForm.patchValue(productClone)
-          console.log(this.productForm.value)
-        }
+        let productClone = JSON.parse(JSON.stringify(product))
+
+        this.items.clear()
+
+        productClone.Prices.map((price: any, i: number) => {
+          price.Retailer = [price.Retailer]
+          this.addPriceFormGroup(price)
+        })
+        this.productForm.patchValue(productClone)
+        this.cdr.detectChanges()
+        console.log(this.productForm.value)
       })
     } else {
       this.addPriceFormGroup()
@@ -146,7 +105,6 @@ export class ProductCreateComponent implements OnInit {
       this.store.dispatch(addProductRequest({ product: normalizedObject }))
     } else {
       const normalizedObject = this.normalizeToUpdate()
-      debugger
       this.store.dispatch(updateProductRequest({ product: normalizedObject }))
     }
   }

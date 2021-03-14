@@ -7,3 +7,4 @@ export const selectProductsFeature = createFeatureSelector<IProductState>(produc
 
 export const selectProductsList = createSelector(selectProductsFeature, (state: IProductState) => state.productsList)
 export const selectedProduct = createSelector(selectProductsFeature, (state: IProductState) => state.selectedProduct)
+export const productToEdit = createSelector(selectProductsFeature, (state: IProductState) => state.productToEdit)

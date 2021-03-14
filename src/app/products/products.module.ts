@@ -3,7 +3,8 @@ import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { EffectsModule } from '@ngrx/effects'
 import { StoreModule } from '@ngrx/store'
-import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown'
+import { CategoriesDropdownModule } from '../shared/components/categories-dropdown/categories-dropdown.module'
+import { RetailersDropdownModule } from '../shared/components/retailers-dropdown/retailers-dropdown.module'
 import { ProductCardComponent } from './components/product-card/product-card.component'
 import { ProductCreateComponent } from './components/product-create/product-create.component'
 import { ProductDetailComponent } from './components/product-detail/product-detail.component'
@@ -22,7 +23,8 @@ import { productsFeatureKey } from './state/products.selectors'
     StoreModule.forFeature(productsFeatureKey, productsReducer),
     EffectsModule.forFeature([ProductsEffects]),
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule.forRoot(),
+    CategoriesDropdownModule,
+    RetailersDropdownModule,
   ],
 })
 export class ProductsModule {}
