@@ -1,154 +1,29 @@
 {
-  "products": [
+  "product": [
     {
-      "Id": "170e64cc-2b71-440e-94fe-90c98cb24abc",
-      "Name": "Port Ellen 21yr",
-      "Description": "21 year old sherry cask Port Ellen",
+      "Id": "dffe53f1-16e2-4222-90ec-1aa198f5fd69",
+      "Name": "Nike Air",
+      "Description": "Nice tennis for playing basketball",
+      "SKU": "NIKEAIR995DS",
       "Categories": [
         {
-          "Id": "ad327ca5-ec10-4051-9b05-43ebaa3157ce",
-          "Name": "Whisky"
-        },
-        {
-          "Id": "9f4b3e22-a369-4fb7-9832-cf83f0bc3663",
-          "Name": "Scotch"
+          "Id": "7390754a-5535-45b0-a83f-0ab872ac7bbe",
+          "Name": "Clothing, Shoes and Jewelry"
         }
       ],
-      "SKU": "PORTELLEN21SHRY",
       "Prices": [
         {
-          "Id": "0efe1c1a-5e9e-4997-8fd8-3facf8092a2a",
+          "Id": "082cf5af-945f-4b7f-9541-9f5ac46a6bd8",
           "Retailer": {
-            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
-            "Name": "Omnia"
+            "Id": "5f7e4447-188c-439e-b396-608de2348a96",
+            "Name": "Amazon"
           },
-          "Price": 1000,
-          "Tier": 1,
-          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
-        },
-        {
-          "Id": "0efe1c1a-5e9e-4997-8fd8-3facf8092a25",
-          "Retailer": {
-            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d5",
-            "Name": "Bruno"
-          },
-          "Price": 2000,
-          "Tier": 2,
-          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
-        }
-      ]
-    },
-    {
-      "Id": "170e64cc-2b71-440e-94fe-90c98cb24abz",
-      "Name": "Black Label 18yr",
-      "Description": "18 year old Black Label",
-      "Categories": [
-        {
-          "Id": "ad327ca5-ec10-4051-9b05-43ebaa3157cz",
-          "Name": "Whisky"
-        },
-        {
-          "Id": "9f4b3e22-a369-4fb7-9832-cf83f0bc366z",
-          "Name": "Scotch"
+          "Price": "200",
+          "Tier": "2",
+          "UpdateTime": "2021-03-15T23:12:20.630Z"
         }
       ],
-      "SKU": "BLACKLABEL18SHRY",
-      "Prices": [
-        {
-          "Id": "0efe1c1a-5e9e-4997-8fd8-3facf8092a2z",
-          "Retailer": {
-            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5dz",
-            "Name": "Visual Wallet"
-          },
-          "Price": 2000,
-          "Tier": 1,
-          "UpdateTime": "2019-03-05T08:56:24.9171117+01:00"
-        }
-      ]
-    },
-    {
-      "Id": "170e64cc-2b71-440e-94fe-90c98cb24abc",
-      "Name": "Port Ellen 21yr",
-      "Description": "21 year old sherry cask Port Ellen",
-      "Categories": [
-        {
-          "Id": "ad327ca5-ec10-4051-9b05-43ebaa3157ce",
-          "Name": "Whisky"
-        },
-        {
-          "Id": "9f4b3e22-a369-4fb7-9832-cf83f0bc3663",
-          "Name": "Scotch"
-        }
-      ],
-      "SKU": "PORTELLEN21SHRY",
-      "Prices": [
-        {
-          "Id": "0efe1c1a-5e9e-4997-8fd8-3facf8092a2a",
-          "Retailer": {
-            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
-            "Name": "Omnia"
-          },
-          "Price": 1000,
-          "Tier": 1,
-          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
-        }
-      ]
-    },
-    {
-      "Id": "170e64cc-2b71-440e-94fe-90c98cb24abz",
-      "Name": "Port Ellen 21yr",
-      "Description": "21 year old sherry cask Port Ellen",
-      "Categories": [
-        {
-          "Id": "ad327ca5-ec10-4051-9b05-43ebaa3157ce",
-          "Name": "Whisky"
-        },
-        {
-          "Id": "9f4b3e22-a369-4fb7-9832-cf83f0bc3663",
-          "Name": "Scotch"
-        }
-      ],
-      "SKU": "PORTELLEN21SHRY",
-      "Prices": [
-        {
-          "Id": "0efe1c1a-5e9e-4997-8fd8-3facf8092a2a",
-          "Retailer": {
-            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
-            "Name": "Omnia"
-          },
-          "Price": 3000,
-          "Tier": 1,
-          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
-        }
-      ]
-    },
-    {
-      "Id": "170e64cc-2b71-440e-94fe-90c98cb24aby",
-      "Name": "Port Ellen 21yr",
-      "Description": "21 year old sherry cask Port Ellen",
-      "Categories": [
-        {
-          "Id": "ad327ca5-ec10-4051-9b05-43ebaa3157ce",
-          "Name": "Whisky"
-        },
-        {
-          "Id": "9f4b3e22-a369-4fb7-9832-cf83f0bc3663",
-          "Name": "Scotch"
-        }
-      ],
-      "SKU": "PORTELLEN21SHRY",
-      "Prices": [
-        {
-          "Id": "0efe1c1a-5e9e-4997-8fd8-3facf8092a2a",
-          "Retailer": {
-            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
-            "Name": "Bruno"
-          },
-          "Price": 1000,
-          "Tier": 1,
-          "UpdateTime": "2019-03-08T08:56:24.9171117+01:00"
-        }
-      ]
+      "id": 1
     }
   ]
 }
