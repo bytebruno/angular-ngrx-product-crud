@@ -21,7 +21,7 @@ export const snackbarReducer = createReducer(
     message: action.message,
     mode: action.mode ? action.mode : 'success',
   })),
-  on(hideSnackbar, (state: ISnackbarState, action) => ({
+  on(hideSnackbar, (state: ISnackbarState) => ({
     ...state,
     show: false,
   }))

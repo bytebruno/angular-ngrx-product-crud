@@ -7,6 +7,7 @@
   min-width: 20%;
   transform-origin: center center;
   transform: translate(-50%, 0%);
+  z-index: 9;
 
   &.success {
     background-color: rgb(0,173,72);

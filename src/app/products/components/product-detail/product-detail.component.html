@@ -43,8 +43,12 @@
       </div>
     </div>
     <div class="btn-action-container">
-      <button type="button" class="btn btn-primary" (click)="goToEditProduct(product.id)">Edit Product</button>
-      <button type="button" class="btn btn-danger" (click)="deleteProduct(product.id)">Delete Product</button>
+      <button type="button" class="btn btn-primary" (click)="goToEditProduct(product.id)" [disabled]="loading$ | async">
+        Edit Product
+      </button>
+      <button type="button" class="btn btn-danger" (click)="deleteProduct(product.id)" [disabled]="loading$ | async">
+        Delete Product
+      </button>
     </div>
   </div>
 </div>

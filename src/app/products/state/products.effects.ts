@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core'
+import { Router } from '@angular/router'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { EMPTY } from 'rxjs'
 import { catchError, map, mergeMap, tap } from 'rxjs/operators'
+import { showSnackbarRequest } from 'src/app/shared/components/snackbar/state/snackbar.action'
 import { setLoading } from '../../shared/components/loading-spinner/state/loading.action'
 import { IProduct } from '../model/product.model'
 import { ProductsService } from '../products.service'
@@ -53,7 +55,11 @@ export class ProductsEffects {
       ofType(addProductRequest),
       mergeMap((action) =>
         this.productsService.add(action.product).pipe(
-          map((newProduct) => addProductSuccess({ product: newProduct })),
+          mergeMap((newProduct) => [
+            addProductSuccess({ product: newProduct }),
+            showSnackbarRequest({ message: 'Product created!' }),
+            setLoading({ loading: false }),
+          ]),
           catchError((err) => {
             console.log(err)
             return EMPTY
@@ -63,15 +69,29 @@ export class ProductsEffects {
     )
   )
 
+  addProductSuccess$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(addProductSuccess),
+        map((action) => this.router.navigate(['/product', action.product.id])),
+        catchError((err) => {
+          console.log(err)
+          return EMPTY
+        })
+      ),
+    { dispatch: false }
+  )
+
   updateProductRequest$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateProductRequest),
       mergeMap((action) =>
         this.productsService.update(action.product).pipe(
-          map((updatedProduct) => {
-            debugger
-            return updateProductSuccess({ product: updatedProduct })
-          }),
+          mergeMap((updatedProduct) => [
+            updateProductSuccess({ product: updatedProduct }),
+            showSnackbarRequest({ message: 'Product updated!' }),
+            setLoading({ loading: false }),
+          ]),
           catchError((err) => {
             console.log(err)
             return EMPTY
@@ -89,6 +109,7 @@ export class ProductsEffects {
           mergeMap(() => [
             clearSelectedProductFromSessionStorage(),
             deleteProductSuccess({ productId: action.productId }),
+            showSnackbarRequest({ message: 'Product deleted!' }),
           ]),
           catchError((err) => {
             console.log(err)
@@ -131,5 +152,5 @@ export class ProductsEffects {
     { dispatch: false }
   )
 
-  constructor(private actions$: Actions, private productsService: ProductsService) {}
+  constructor(private actions$: Actions, private productsService: ProductsService, private router: Router) {}
 }

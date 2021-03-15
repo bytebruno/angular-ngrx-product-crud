@@ -4,8 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router'
 import { Store } from '@ngrx/store'
 import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
+import { setLoading } from 'src/app/shared/components/loading-spinner/state/loading.action'
+import { selectLoading } from 'src/app/shared/components/loading-spinner/state/loading.selectors'
 import { GuidHelper } from 'src/app/utils/GuidHelper'
-import { setLoading } from '../../../shared/components/loading-spinner/state/loading.action'
 import { IProduct, IProductPrice } from '../../model/product.model'
 import { addProductRequest, getOneProductRequest, updateProductRequest } from '../../state/products.actions'
 import { productToEdit } from '../../state/products.selectors'
@@ -24,6 +25,8 @@ export class ProductCreateComponent implements OnInit {
   productId: string = ''
   isAddMode: boolean = false
   product$!: Observable<IProduct | null>
+  loading$!: Observable<boolean>
+
   notifier = new Subject()
 
   constructor(
@@ -38,25 +41,15 @@ export class ProductCreateComponent implements OnInit {
     this.productId = this.route.snapshot.params['id']
     this.isAddMode = !this.productId
 
-    this.productForm = this.formBuilder.group({
-      Id: [''],
-      Name: ['', Validators.required],
-      Description: ['', Validators.required],
-      SKU: ['', Validators.required],
-      Categories: [[], Validators.required],
-      Prices: this.formBuilder.array([]),
-    })
+    this.product$ = this.store.select(productToEdit)
+    this.loading$ = this.store.select(selectLoading)
 
-    this.items = this.productForm.get('Prices') as FormArray
+    this.createForm()
 
     if (!this.isAddMode) {
-      this.store.dispatch(getOneProductRequest({ productId: Number.parseInt(this.productId) }))
       this.store.dispatch(setLoading({ loading: true }))
-
-      this.product$ = this.store.select(productToEdit)
-      this.product$.pipe(takeUntil(this.notifier)).subscribe((product) => {
-        this.prepareForm(product)
-      })
+      this.store.dispatch(getOneProductRequest({ productId: Number.parseInt(this.productId) }))
+      this.product$.pipe(takeUntil(this.notifier)).subscribe((product) => this.updateFormValues(product))
     } else {
       this.addPriceFormGroup()
     }
@@ -87,6 +80,7 @@ export class ProductCreateComponent implements OnInit {
   }
 
   saveProduct() {
+    this.store.dispatch(setLoading({ loading: true }))
     if (this.isAddMode) {
       const normalizedObject = this.normalizeToAdd()
       this.store.dispatch(addProductRequest({ product: normalizedObject }))
@@ -119,8 +113,22 @@ export class ProductCreateComponent implements OnInit {
     return productClone
   }
 
-  prepareForm(product: IProduct | null) {
+  createForm() {
+    this.productForm = this.formBuilder.group({
+      Id: [''],
+      Name: ['', Validators.required],
+      Description: ['', Validators.required],
+      SKU: ['', Validators.required],
+      Categories: [[], Validators.required],
+      Prices: this.formBuilder.array([]),
+    })
+
+    this.items = this.productForm.get('Prices') as FormArray
+  }
+
+  updateFormValues(product: IProduct | null) {
     if (product === null) return
+
     this.product = product
     let productClone = JSON.parse(JSON.stringify(product))
 
@@ -130,6 +138,7 @@ export class ProductCreateComponent implements OnInit {
       price.Retailer = [price.Retailer]
       this.addPriceFormGroup(price)
     })
+
     this.productForm.patchValue(productClone)
     this.cdr.detectChanges()
   }

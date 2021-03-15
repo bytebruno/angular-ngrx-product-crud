@@ -47,20 +47,29 @@
               </div>
             </div>
             <div class="price-delete-container" *ngIf="i !== 0">
-              <button type="button" class="btn btn-danger" (click)="removePriceFormGroup(i)">Delete</button>
+              <button
+                type="button"
+                [disabled]="loading$ | async"
+                class="btn btn-danger"
+                (click)="removePriceFormGroup(i)"
+              >
+                Delete
+              </button>
             </div>
           </div>
         </div>
       </div>
       <div class="button-default-container add-price-container">
-        <button type="button" class="btn btn-primary" (click)="addPriceFormGroup()">Add new price</button>
+        <button type="button" [disabled]="loading$ | async" class="btn btn-primary" (click)="addPriceFormGroup()">
+          Add new price
+        </button>
       </div>
       <hr />
       <div class="button-default-container">
         <button
           type="button"
           class="btn btn-success"
-          [disabled]="!productForm.valid"
+          [disabled]="(loading$ | async) || !productForm.valid"
           (click)="saveProduct()"
           *ngIf="isAddMode"
         >
@@ -69,7 +78,7 @@
         <button
           type="button"
           class="btn btn-success"
-          [disabled]="!productForm.valid"
+          [disabled]="(loading$ | async) || !productForm.valid"
           (click)="saveProduct()"
           *ngIf="!isAddMode"
         >

@@ -11,16 +11,10 @@ import { selectLoading } from './state/loading.selectors'
 })
 export class LoadingSpinnerComponent implements OnInit {
   loading$: Observable<boolean>
-  //loadingT!: {loading = false}
 
   constructor(private store: Store<{ products: object }>) {
     this.loading$ = store.select(selectLoading)
   }
 
-  ngOnInit(): void {
-    this.loading$.subscribe((loading) => {
-      console.log(loading)
-      //   this.loadingT = loading
-    })
-  }
+  ngOnInit(): void {}
 }

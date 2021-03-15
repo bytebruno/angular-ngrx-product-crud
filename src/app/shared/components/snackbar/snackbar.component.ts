@@ -3,7 +3,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@
 import { Store } from '@ngrx/store'
 import { Observable, Subject } from 'rxjs'
 import { takeUntil } from 'rxjs/operators'
-import { hideSnackbar } from './state/snackbar.action'
 import { selectSnackbar } from './state/snackbar.selector'
 
 @Component({
@@ -54,10 +53,6 @@ export class SnackbarComponent implements OnInit {
     this.snackbar$.pipe(takeUntil(this.notifier)).subscribe((snackbar) => {
       this.snackbar = { ...snackbar }
       this.cdr.detectChanges()
-
-      setTimeout(() => {
-        this.store.dispatch(hideSnackbar())
-      }, 3000)
     })
   }
 
