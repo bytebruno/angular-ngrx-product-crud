@@ -27,7 +27,7 @@ export class ProductsService {
 
   update(product: IProduct): Observable<IProduct> {
     return this.http
-      .patch<IProduct>(`${environment.API_URL}/product/${product.id}`, product)
+      .put<IProduct>(`${environment.API_URL}/product/${product.id}`, product)
       .pipe(delay(environment.API_DELAY))
   }
 
