@@ -9,5 +9,11 @@
 
   @media (max-width: $mobile) {
     margin: 0;
+    margin-bottom: 30px;
   }
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
 }

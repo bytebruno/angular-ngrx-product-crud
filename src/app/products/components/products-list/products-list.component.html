@@ -1,5 +1,8 @@
-<div class="grid-container">
+<div class="grid-container" *ngIf="!(loading$ | async)">
   <div *ngFor="let product of products$ | async; trackBy: trackProducts">
     <app-product-card [product]="product"></app-product-card>
   </div>
+</div>
+<div class="button-container" *ngIf="!(loading$ | async)">
+  <button class="btn btn-primary" [routerLink]="['/product']">New Product</button>
 </div>

@@ -1,7 +1,7 @@
-<div class="card-container" *ngIf="product !== undefined" (click)="goToDetails()">
+<div class="card-container" *ngIf="product" (click)="goToDetails()">
   <div class="card-img-container">
-    <img class="img-fluid" src="../../../../assets/images/product-placeholder.png" alt="Product image" />
-    <span class="badge price">€{{ product.Prices[0].Price }}</span>
+    <img src="../../../../assets/images/product-placeholder.png" alt="Product image" />
+    <span class="price-badge">€{{ product.Prices[0].Price }}</span>
   </div>
   <div class="card-content">
     <h5>{{ product.Name }}</h5>

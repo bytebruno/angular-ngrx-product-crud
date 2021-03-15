@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { Observable } from 'rxjs'
-import { setLoading } from 'src/app/shared/loading-spinner/components/loading-spinner/state/loading.action'
+import { Observable, Subject } from 'rxjs'
+import { selectLoading } from 'src/app/shared/components/loading-spinner/state/loading.selectors'
+import { setLoading } from '../../../shared/components/loading-spinner/state/loading.action'
 import { IProduct } from '../../model/product.model'
 import { getProducts } from '../../state/products.actions'
 import { selectProductsList } from '../../state/products.selectors'
@@ -12,17 +13,26 @@ import { selectProductsList } from '../../state/products.selectors'
   styleUrls: ['./products-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsListComponent implements OnInit {
-  products$: Observable<Array<IProduct>>
+export class ProductsListComponent implements OnInit, OnDestroy {
+  products$!: Observable<Array<IProduct>>
+  loading$!: Observable<boolean>
+  notifier = new Subject()
+  products: IProduct[] = []
 
-  constructor(private store: Store<{ products: object }>) {
-    this.products$ = store.select(selectProductsList)
-  }
+  constructor(private store: Store<{ products: object }>) {}
 
   ngOnInit(): void {
+    this.products$ = this.store.select(selectProductsList)
+    this.loading$ = this.store.select(selectLoading)
+
     this.store.dispatch(setLoading({ loading: true }))
     this.store.dispatch(getProducts())
   }
 
   trackProducts = (index: number, product: IProduct) => (product ? product.Id : null)
+
+  ngOnDestroy() {
+    this.notifier.next()
+    this.notifier.complete()
+  }
 }

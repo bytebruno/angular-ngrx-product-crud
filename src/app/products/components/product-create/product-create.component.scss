@@ -1,6 +1,6 @@
 @import '../../../../assets/styles/variables';
 
-.product-detail-container {
+.product-create-container {
   display: flex;
   width: 600px;
   flex-direction: column;
@@ -17,7 +17,6 @@
 
   .product-form {
     width: 100%;
-    font-family: 'Montserrat', 'Helvetica Neue', Arial, sans-serif;
 
     .form-control {
       font-size: 0.8rem;
@@ -85,54 +84,6 @@
       &.add-price-container {
         flex-direction: row;
       }
-    }
-  }
-
-  .info-row {
-    flex: 1 1 auto;
-    width: 100%;
-    margin-bottom: 10px;
-
-    display: flex;
-    flex-direction: row;
-  }
-
-  .labelbox {
-    flex: 0 0 25%;
-    font-weight: 600;
-    font-size: 0.75rem;
-  }
-
-  .valuebox {
-    flex: 0 0 75%;
-    font-size: 0.75rem;
-  }
-
-  .card-content {
-    display: flex;
-    flex-direction: column;
-    align-self: flex-start;
-    width: 100%;
-
-    .product-title {
-      font-size: 1.15rem;
-      font-weight: 700;
-      text-align: center;
-    }
-    .product-description {
-      font-size: 0.85rem;
-      text-align: center;
-    }
-
-    .price-title {
-      font-size: 1.1rem;
-      margin-top: 10px;
-      text-align: center;
-    }
-
-    hr {
-      margin-top: 0;
-      width: 100%;
     }
   }
 

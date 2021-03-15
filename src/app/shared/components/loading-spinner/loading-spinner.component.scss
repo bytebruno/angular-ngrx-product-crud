@@ -1,6 +1,6 @@
 .spinner {
   animation: rotate 2s linear infinite;
-  z-index: 3;
+  z-index: 9;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -34,13 +34,4 @@
     stroke-dasharray: 90, 150;
     stroke-dashoffset: -124;
   }
-}
-
-.darker-background {
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.7);
-  background-size: 100% auto;
-  height: 100vh;
-  width: 100%;
-  z-index: 2;
 }

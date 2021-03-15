@@ -9,8 +9,8 @@
       <hr />
 
       <div class="info-row">
-        <p class="labelbox">Categories</p>
-        <p class="valuebox">
+        <p class="label">Categories</p>
+        <p class="value">
           <span *ngFor="let category of product.Categories; let isLast = last"
             >{{ category.Name }}{{ isLast ? '' : ' - ' }}
           </span>
@@ -18,8 +18,8 @@
       </div>
 
       <div class="info-row">
-        <p class="labelbox">GTIN</p>
-        <p class="valuebox">{{ product.SKU }}</p>
+        <p class="label">GTIN</p>
+        <p class="value">{{ product.SKU }}</p>
       </div>
 
       <h5 class="price-title">Prices</h5>
