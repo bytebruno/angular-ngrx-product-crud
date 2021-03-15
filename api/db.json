@@ -24,6 +24,90 @@
         }
       ],
       "id": 1
+    },
+    {
+      "Id": "423b6a49-f094-4e61-b9bd-39fcbd7ceb29",
+      "Name": "Samsung TV 42",
+      "Description": "Big Samsung TV",
+      "SKU": "SAMSUNGTV42",
+      "Categories": [
+        {
+          "Id": "cda88e4d-5397-479b-a6c5-7d0f8eaeb3be",
+          "Name": "Electronics"
+        }
+      ],
+      "Prices": [
+        {
+          "Id": "46965e06-d53d-486e-af78-bd2c7c0b7da0",
+          "Retailer": {
+            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "Price": "2000",
+          "Tier": "10",
+          "UpdateTime": "2021-03-15T23:25:34.944Z"
+        },
+        {
+          "Id": "d30cf065-1574-462d-8abe-02dc4f647e9b",
+          "Retailer": {
+            "Id": "5f7e4447-188c-439e-b396-608de2348a96",
+            "Name": "Amazon"
+          },
+          "Price": "1800",
+          "Tier": "8",
+          "UpdateTime": "2021-03-15T23:25:34.944Z"
+        }
+      ],
+      "id": 2
+    },
+    {
+      "Id": "b04d17eb-826c-4425-9b5f-8887af1b6b81",
+      "Name": "Monitor Benq 25",
+      "Description": "Nice monitor for playing games",
+      "SKU": "BENQ25GM",
+      "Categories": [
+        {
+          "Id": "cda88e4d-5397-479b-a6c5-7d0f8eaeb3be",
+          "Name": "Electronics"
+        },
+        {
+          "Id": "6aa45096-516e-4534-92f1-c099ebb277b8",
+          "Name": "Apps & Games"
+        }
+      ],
+      "Prices": [
+        {
+          "Id": "855b58a9-f918-4ae2-b517-cdaff5325525",
+          "Retailer": {
+            "Id": "92e403f9-d3b6-4a8f-84f4-5fd8b1e480ae",
+            "Name": "eBay"
+          },
+          "Price": "1500",
+          "Tier": "8",
+          "UpdateTime": "2021-03-15T23:27:06.777Z"
+        },
+        {
+          "Id": "6213eccf-3e02-4c7c-b544-cd4a01a831eb",
+          "Retailer": {
+            "Id": "5f7e4447-188c-439e-b396-608de2348a96",
+            "Name": "Amazon"
+          },
+          "Price": "1000",
+          "Tier": "5",
+          "UpdateTime": "2021-03-15T23:27:06.777Z"
+        },
+        {
+          "Id": "548f0f37-3cda-4a60-b4d9-615a1fc8c7fa",
+          "Retailer": {
+            "Id": "e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3",
+            "Name": "Omnia"
+          },
+          "Price": "1300",
+          "Tier": "6",
+          "UpdateTime": "2021-03-15T23:27:06.777Z"
+        }
+      ],
+      "id": 3
     }
   ]
 }

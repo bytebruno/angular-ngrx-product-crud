@@ -1,27 +1,37 @@
-# OmniaFront
+# Omnia - Front
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.3.
+Omnia frontend case.
 
-## Development server
+## Project Setup
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### Start the app
+* Clone the Project - `https://github.com/bytebruno/omnia-front.git`
+* Install the dependencies - `npm install` 
+* Run fake api (json-server) - `npm run api`
+* Start the web app - `npm start` or `ng serve`
+* The application will be running on `http://localhost:4200` and the fake api on port `http://localhost:3000`
 
-## Code scaffolding
+#### Run tests
+* Run unit tests - `ng test`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Technologies
 
-## Build
+* Angular 11
+* NgRx
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+## Screenshots
 
-## Running unit tests
+### Product's list
+![Product's list](docs/screenshots/s1.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Product detail
+![Product detail](docs/screenshots/s2.png)
 
-## Running end-to-end tests
+### New product
+![New product](docs/screenshots/s3.png)
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+### Update Product
+![Update Product](docs/screenshots/s4.png)
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Fake database
+![Fake database](docs/screenshots/s5.png)
