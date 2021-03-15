@@ -1,0 +1,12 @@
+::ng-deep .multiselect-dropdown {
+  outline: 0;
+
+  span {
+    font-size: 0.8rem;
+    margin-bottom: 4px;
+  }
+
+  &:focus {
+    outline: 0;
+  }
+}

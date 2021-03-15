@@ -22,12 +22,12 @@ export class RetailersDropdownComponent implements OnInit {
 
   retailersList: IProductRetailer[] = [
     {
-      Id: 'e417d0b1-9cdf-48be-92b5-cf78a0eaa5d5',
-      Name: 'Bruno',
+      Id: '5f7e4447-188c-439e-b396-608de2348a96',
+      Name: 'Amazon',
     },
     {
-      Id: 'e417d0b1-9cdf-48be-92b5-cf78a0eaa5dz',
-      Name: 'Visual Wallet',
+      Id: '92e403f9-d3b6-4a8f-84f4-5fd8b1e480ae',
+      Name: 'eBay',
     },
     {
       Id: 'e417d0b1-9cdf-48be-92b5-cf78a0eaa5d3',

@@ -46,18 +46,6 @@
       }
     }
 
-    ::ng-deep .multiselect-dropdown {
-      outline: 0;
-
-      span {
-        font-size: 0.8rem;
-      }
-
-      &:focus {
-        outline: 0;
-      }
-    }
-
     hr {
       margin-top: 0;
     }
