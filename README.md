@@ -1,6 +1,6 @@
-# Omnia - Front
+# Angular with NGRX - CRUD Example
 
-Omnia frontend case.
+Product CRUD example using Angular 11 and NGRX technologies
 
 ## Project Setup
 
